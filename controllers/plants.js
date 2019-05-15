@@ -3,7 +3,7 @@ const router = express.Router()
 const Plant = require('../models/Plant.js')
 
 //get a single plant
-router.get('plantName/:regularName', function (req, res) {
+router.get('/plantName/:regularName', function (req, res) {
     Plant.findOne({ regularName: req.params.regularName })
         .then(plant => res.json(plant))
         .catch(err => console.log(err))
