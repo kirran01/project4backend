@@ -1,10 +1,10 @@
-const Plant = require('../models/Plant')
-const plants = require('../plants.json')
+const User = require('../models/User')
+const users = require('../users.json')
 
-Plant.deleteMany({}).then(() => {
-    Plant.create(plants)
-        .then(newPlant => {
-            console.log(newPlant)
+User.deleteMany({}).then(() => {
+    User.create(users)
+        .then(newUser => {
+            console.log(newUser)
         })
         .catch(err => {
             console.log(err)
