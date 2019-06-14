@@ -7,14 +7,15 @@ router.post('/login', function (req, res) {
     console.log(req.body);
     User.findOne(req.body)
         .then(user => res.json(user))
-        .catch(err => console.log(err))
+        .catch(err => res.json(err))
+
 })
 
 router.get('/user/:userId', function (req, res) {
     console.log(req.params.userId)
     User.findOne({ _id: req.params.userId })
         .then(user => res.json(user))
-        .catch(err => console.log(err))
+        .catch(err => res.json(err))
 
 });
 
@@ -23,26 +24,30 @@ router.post('/signup', function (req, res) {
     console.log('signup', req.body);
     User.create(req.body)
         .then(user => res.json(user))
-        .catch(err => console.log(err))
+        .catch(err => res.json(err))
+
 })
 
 router.get("/id/:userId", function (req, res) {
     User.findOne({ _id: req.params.userId })
         .then(user => res.json(user))
-        .catch(err => console.log(err))
+        .catch(err => res.json(err))
+
 })
 
 router.get('/', (req, res) => {
     User.find({})
         .then(users => res.json(users))
-        .catch(err => console.log(err));
+        .catch(err => res.json(err))
+        ;
 })
 
 //delete a user
 router.delete('/:email', function (req, res) {
     User.deleteOne({ email: req.params.email })
         .then(destroyed => res.json(req.params.email + 'succesfully deleted'))
-        .catch(err => console.log(err))
+        .catch(err => res.json(err))
+
 })
 
 router.put('/deletePost', function (req, res) {
@@ -50,7 +55,8 @@ router.put('/deletePost', function (req, res) {
         $pullAll: { posts: [req.body.post] }
     })
         .then(updated => res.json('successfully deleted post'))
-        .catch(err => console.log(err))
+        .catch(err => res.json(err))
+
 })
 
 // update user posts
@@ -63,7 +69,8 @@ router.put('/updateposts/:id', function (req, res) {
             console.log(updated)
             res.json(updated)
         })
-        .catch(err => console.log(err))
+        .catch(err => res.json(err))
+
 })
 
 module.exports = router
