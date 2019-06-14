@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/User.js')
 
-//get a single plant
+//create a login
 router.post('/login', function (req, res) {
     console.log(req.body);
     User.findOne(req.body)
@@ -11,6 +11,7 @@ router.post('/login', function (req, res) {
 
 })
 
+//get single user
 router.get('/user/:userId', function (req, res) {
     console.log(req.params.userId)
     User.findOne({ _id: req.params.userId })
@@ -19,11 +20,15 @@ router.get('/user/:userId', function (req, res) {
 
 });
 
-//get all plants
+//create user
 router.post('/signup', function (req, res) {
     console.log('signup', req.body);
     User.create(req.body)
-        .then(user => res.json(user))
+        .then(user => {
+            console.log('user', user);
+
+            res.json(user)
+        })
         .catch(err => res.json(err))
 
 })
@@ -39,7 +44,7 @@ router.get('/', (req, res) => {
     User.find({})
         .then(users => res.json(users))
         .catch(err => res.json(err))
-        ;
+
 })
 
 //delete a user
@@ -49,7 +54,7 @@ router.delete('/:email', function (req, res) {
         .catch(err => res.json(err))
 
 })
-
+//delete a post
 router.put('/deletePost', function (req, res) {
     User.update({ _id: req.body.id }, {
         $pullAll: { posts: [req.body.post] }
