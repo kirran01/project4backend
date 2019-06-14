@@ -1,11 +1,9 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost/p4db', { useNewUrlParser: true })
-
 if (process.env.NODE_ENV == 'production') {
-    mongoose.connect(process.env.DB_URL)
+    mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
 } else {
-    mongoose.connect('mongodb://localhost/p4db')
+    mongoose.connect('mongodb://localhost/p4db', { useNewUrlParser: true })
 }
 
 mongoose.Promise = Promise

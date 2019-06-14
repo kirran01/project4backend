@@ -32,10 +32,18 @@ router.get("id/:userId", function (req, res) {
         .catch(err => console.log(err))
 })
 
-//delete a plant
+//delete a user
 router.delete('/:email', function (req, res) {
     User.deleteOne({ email: req.params.email })
         .then(destroyed => res.json(req.params.email + 'succesfully deleted'))
+        .catch(err => console.log(err))
+})
+
+router.put('/deletePost', function (req, res) {
+    User.update({ _id: req.body.id }, {
+        $pullAll: { posts: [req.body.post] }
+    })
+        .then(updated => res.json('successfully deleted post'))
         .catch(err => console.log(err))
 })
 
@@ -43,9 +51,12 @@ router.delete('/:email', function (req, res) {
 router.put('/updateposts/:id', function (req, res) {
     console.log(req.body)
     User.updateOne({ _id: req.params.id }, {
-        $push: { posts: req.body.post }
+        $addToSet: { posts: req.body.post }
     })
-        .then(updated => res.json('sucessfully updated'))
+        .then(updated => {
+            console.log(updated)
+            res.json(updated)
+        })
         .catch(err => console.log(err))
 })
 
