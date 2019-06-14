@@ -32,6 +32,12 @@ router.get("id/:userId", function (req, res) {
         .catch(err => console.log(err))
 })
 
+router.get('/', (req, res) => {
+    User.find({})
+        .then(users => res.json(users))
+        .catch(err => console.log(err));
+})
+
 //delete a user
 router.delete('/:email', function (req, res) {
     User.deleteOne({ email: req.params.email })
