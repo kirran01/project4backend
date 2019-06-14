@@ -26,7 +26,7 @@ router.post('/signup', function (req, res) {
         .catch(err => console.log(err))
 })
 
-router.get("id/:userId", function (req, res) {
+router.get("/id/:userId", function (req, res) {
     User.findOne({ _id: req.params.userId })
         .then(user => res.json(user))
         .catch(err => console.log(err))
